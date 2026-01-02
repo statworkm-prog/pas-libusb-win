@@ -257,8 +257,8 @@ Begin
 End;
 
 Function TLibUsbDeviceIntfInfo.HasTty : String;
-Var
 {$IFDEF LINUX}
+Var
     SRec       : TSearchRec;
 {$ENDIF}
 Begin

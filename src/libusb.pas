@@ -53,7 +53,7 @@ Interface
 Uses CTypes;
 
 {$ifdef windows}
-  const dllname = 'libusb-1.0-MinGW32.dll'; // choose the filename You use as DLL here !
+  const dllname = 'libusb-1.0.dll'; // filename of DLL
 {$else}
   {$LINKLIB c}
   {$LINKLIB usb-1.0}
