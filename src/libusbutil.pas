@@ -216,11 +216,11 @@ Begin
       WriteLn('Bus Number: ', FBusNumber);
       WriteLn('Port Number: ', FPortNumber);
       Write('Port Path: ');
+{$IFDEF LINUX}
       For I := 0 to Length(FPortPath)-1 do
         Write(FPortPath[I],' ');
       WriteLn;
       WriteLn('Device Address: ', FAddress);
-{$IFDEF LINUX}
       // create filename used in /sys for the USB device
       FSysDev := IntToStr(FBusNumber)+'-';
       For I := 1 to Length(FPortPath)-1 do
