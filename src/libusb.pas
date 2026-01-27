@@ -53,7 +53,8 @@ Interface
 Uses CTypes;
 
 {$ifdef windows}
-  const dllname = 'libusb-1.0.dll'; // filename of your libusb DLL, more information here: https://github.com/libusb/libusb
+// filename of your libusb library, more information here: https://github.com/libusb/libusb
+  const dllname = 'libusb-1.0.dll'; 
 {$else}
   {$LINKLIB c}
   {$LINKLIB usb-1.0}

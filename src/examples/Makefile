@@ -10,14 +10,14 @@ ifeq ($(findstring MINGW,$(UNAME_S)), MINGW)
 endif
 
 EXECUTABLES = test1library test2controlsync test3controlasync testfirmware
-FPCFLAGS = -Fu..
+FPC_OPTS = -Fu..
 ifeq ($(OS), Windows_NT)
-  FPCFLAGS += -Twin64
+  FPC_OPTS += -Twin64
   # when using 64 bit, use the cross compiler ppcrossx64.exe instead of fpc.exe
   ifeq ($(ARCH), x86_64)
     #path to my ppcrossx64.exe in MinG64
     FPC = /c/FPC/3.2.2/bin/i386-win32/ppcrossx64.exe
-    FPCFLAGS += -Fu"C:/FPC/3.2.2/units/x86_64-win64/"
+    FPC_OPTS += -Fu"C:/FPC/3.2.2/units/x86_64-win64/"
   else
     FPC = /c/FPC/3.2.2/bin/i386-win32/fpc.exe
   endif
@@ -28,7 +28,7 @@ endif
 all: $(EXECUTABLES)
 
 %: %.pas
-	$(FPC) $(FPCFLAGS) $<
+	$(FPC) $(FPC_OPTS) $<
 
 clean:
 	rm -f *.o *.ppu *~ *.bak $(EXECUTABLES)
