@@ -1,28 +1,23 @@
 
-UNAME_S := $(shell uname -s)
+#UNAME_S := $(shell uname -s)
 #$(info OS: $(OS) ARCH: $(ARCH))
 #$(info UNAME_S = $(UNAME_S))
 
 #find your shell and adjust your OS and ARCH accordingly
-ifeq ($(findstring MINGW,$(UNAME_S)), MINGW)
-  OS = Windows_NT
-  ARCH = x86_64
-endif
+#ifeq ($(findstring MINGW64,$(UNAME_S)), MINGW64)
+#  OS = Windows_NT
+  #ARCH = x86_64
+#endif
+
+$(info OS: $(OS) ARCH: $(ARCH))
+
+#Change the parth to your fpc here if necessary:
+FPC = fpc
 
 EXECUTABLES = test1library test2controlsync test3controlasync testfirmware
 FPC_OPTS = -Fu..
-ifeq ($(OS), Windows_NT)
+ifeq ($(ARCH), x86_64)
   FPC_OPTS += -Twin64
-  # when using 64 bit, use the cross compiler ppcrossx64.exe instead of fpc.exe
-  ifeq ($(ARCH), x86_64)
-    #path to my ppcrossx64.exe in MinG64
-    FPC = /c/FPC/3.2.2/bin/i386-win32/ppcrossx64.exe
-    FPC_OPTS += -Fu"C:/FPC/3.2.2/units/x86_64-win64/"
-  else
-    FPC = /c/FPC/3.2.2/bin/i386-win32/fpc.exe
-  endif
-else
-  FPC = fpc
 endif
 
 all: $(EXECUTABLES)
