@@ -11,6 +11,8 @@ wrapper for convenience.
 This branch provides support for the new version 1.0 of libusb and its fork
 libusbx.
 
+Furthermore libusb1.0 has been made compatible with windows.
+
 License
 -------
 
@@ -59,6 +61,30 @@ uses control messages and bulk endpoints, think of a sane solution.
 The unit ``EZUSB`` provides the class ``TLibUsbDeviceEZUSB`` to interface to
 the Cypress EZ-USB AN2131 microcontrollers. It provides functions to access the
 on-chip SRAM and to download its firmware.
+
+WINDOWS
+-------
+
+In order to make these functions work on Windows we have used {$IFDEF WINDOWS} 
+in the files to switch between some OS-specific Libraries and functions.
+We have tested the functionality on my KeysightE36234A. 
+(tested using pas-gpib/examples/testkeysighte3631xa.pas)
+
+There are a few points to keep in mind when working on windows:
+1. Pascal needs to compile for Windows in order use the correct libraries and functions
+(in wsl it compiles for linux!)
+You can adjust the compilation target using the "OS" variables in the Makefile.
+2. Compiling for i386 works also on 64 bit Systems. 
+Since 2.6.0 fpc only uses a cross compiler for 64 bit, so it is recommended to just use 
+32 bit.
+3. pas-libusb needs an additional libusb-1.0.dll library in pas-libusb/src/
+(find a compatible libusb1.0 library here: `https://github.com/libusb/libusb/releases <https://github.com/libusb/libusb/releases>`_)
+You can change the name of the library LibUsb.pas in the constant 'const dllname'.
+Keep in mind that .so - and some .a - libraries are incompatible with Windows.
+4. Make sure you have a compatible USB driver installed.
+Windows inherently installs the eXtensible Hostcontroller Driver (xHCI) which is not
+working with libusb. Use a software/tool to install a different driver.
+(e.g. `zadig <https://zadig.akeo.ie/>`_ )
 
 Changes from libusb-0.1
 -----------------------
